@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { TodoitemComponent } from '../Todoitem/todoitem';
 import { todos } from '../../todos';
+import { TodoService } from '../../todos.services';
+
 
 @Component({
   selector: 'app-todolist',
@@ -10,5 +12,13 @@ import { todos } from '../../todos';
 })
 
 export class TodolistComponent {
-  todos = todos.filter(t => !t.done);
+
+
+  todosService = inject(TodoService);
+
+  todos = this.todosService.getAllTodos();
+
+  itemDone(id: number) {
+    this.todosService.completeTodo(id);
+  }
 }

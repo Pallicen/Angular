@@ -1,10 +1,6 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
+import { Todo } from '../../Models/todo.model';
 
-interface todo {
-  id: number,
-  todo: string,
-  done: boolean
-}
 
 @Component({
   selector: 'app-todoitem',
@@ -14,6 +10,11 @@ interface todo {
 })
 export class TodoitemComponent {
 
-  todo = input.required<todo>();
+  todo = input.required<Todo>();
+  doneItem = output<number>()
+
+  itemDone() {
+    this.doneItem.emit(this.todo().id)
+  }
 
 }
